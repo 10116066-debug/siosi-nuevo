@@ -1,432 +1,215 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>HOME FORGEX — Clientes Eaglercraft</title>
+import { useState } from "react";
 
-<style>
-  :root {
-    /* Paleta de colores "Modo Claro" */
-    --bg-1: #f4f7f6;       /* Fondo principal (gris muy claro) */
-    --bg-2: #ffffff;       /* Fondo secundario (blanco) */
-    --card: #ffffff;       /* Color de las tarjetas */
-    --text-color: #1a1a1a; /* Texto principal (casi negro) */
-    --muted: #555555;      /* Texto secundario (gris oscuro) */
-    --accent1: #007bff;     /* Acento primario (azul) */
-    --accent2: #0056b3;     /* Acento secundario (azul oscuro hover) */
-    --danger: #dc3545;      /* Peligro (rojo) */
-    --success: #28a745;     /* Éxito (verde) */
-    --border-color: rgba(0, 0, 0, 0.08); /* Borde sutil */
-  }
-
-  /* 1. Reseteo y Estilos Base */
-  * { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; }
-
-  body {
-    background-color: var(--bg-1); /* Fondo gris claro */
-    color: var(--text-color);      /* Texto oscuro */
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* 2. Header y Navegación */
-  header {
-    position: sticky; top: 0; z-index: 60;
-    background: var(--bg-2); /* Fondo blanco sólido */
-    border-bottom: 1px solid var(--border-color); /* Borde sutil */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
-  }
-
-  .nav {
-    max-width: 1200px; margin: 0 auto; padding: 18px 20px;
-    display: flex; gap: 12px; align-items: center; justify-content: space-between;
-  }
-
-  .brand { display: flex; gap: 12px; align-items: center; cursor: pointer; }
-
-  .logo {
-    width: 48px; height: 48px; display: grid; place-items: center; border-radius: 12px;
-    background: linear-gradient(135deg, var(--accent1), var(--accent2)); /* Gradiente azul */
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); /* Sombra azul */
-    font-weight: 800;
-    color: white; /* Texto del logo en blanco */
-  }
-
-  .brand-text { display: flex; flex-direction: column; line-height: 1; }
-  .title {
-    font-size: 1.15rem; font-weight: 800;
-    color: var(--accent1); /* Color de acento azul */
-  }
-  .subtitle { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
-
-  /* 3. Búsqueda y Controles */
-  .controls { flex: 1; margin-left: 20px; display: flex; align-items: center; gap: 16px; }
-
-  .search {
-    flex: 1; display: flex; align-items: center; gap: 10px;
-    background: var(--bg-1); /* Fondo gris claro */
-    border-radius: 12px; padding: 8px 12px;
-    border: 1px solid var(--border-color);
-    transition: box-shadow .18s, border-color .18s;
-  }
-  
-  /* Icono de búsqueda */
-  .search svg path, .search svg circle {
-    stroke: var(--muted); /* Color gris para la lupa */
-  }
-
-  .search:focus-within {
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); /* Resalte azul al enfocar */
-    border-color: var(--accent1);
-  }
-
-  .search input {
-    flex: 1; background: transparent; border: 0;
-    color: var(--text-color); /* Texto oscuro */
-    font-size: 15px; padding: 10px; outline: none;
-  }
-  .search input::placeholder { color: var(--muted); }
-
-  .kbd {
-    font-size: 12px; padding: 6px 8px; border-radius: 8px;
-    background: var(--bg-2); /* Fondo blanco */
-    color: var(--muted);
-    border: 1px solid var(--border-color);
-  }
-
-  /* 4. Contenido Principal */
-  main {
-    flex: 1; max-width: 1200px; margin: 28px auto;
-    padding: 0 20px 60px; width: 100%;
-  }
-
-  .hero {
-    display: flex; gap: 22px; align-items: center;
-    justify-content: space-between; margin-bottom: 22px;
-  }
-  .hero-left { max-width: 780px; }
-  .h1 {
-    font-size: 28px; font-weight: 800; margin: 0 0 6px;
-    letter-spacing: -0.02em;
-  }
-  .h1-sub { color: var(--muted); margin-bottom: 10px; }
-
-  /* 5. Tarjetas (Grid) */
-  .section { margin-top: 18px; }
-  .section-head {
-    display: flex; align-items: center;
-    justify-content: space-between; margin-bottom: 12px;
-  }
-  .section-title { font-size: 20px; font-weight: 700; }
-  .grid {
-    display: grid; gap: 14px;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  }
-
-  .card {
-    background: var(--card); /* Fondo blanco sólido */
-    border: 1px solid var(--border-color); /* Borde sutil */
-    padding: 16px; border-radius: 12px;
-    transition: transform .18s, box-shadow .18s, border-color .18s;
-  }
-
-  .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07); /* Sombra suave */
-    border-color: var(--accent1); /* Borde azul al pasar el mouse */
-  }
-
-  .client-name { font-weight: 700; font-size: 16px; margin-bottom: 6px; }
-  .client-version {
-    color: var(--accent1); /* Color azul */
-    font-weight: 600; margin-bottom: 10px;
-  }
-
-  .open-btn {
-    display: inline-block; padding: 10px 12px; border-radius: 10px;
-    border: 0; cursor: pointer;
-    background: var(--accent1); /* Fondo azul */
-    color: #fff; font-weight: 700; width: 100%;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2); /* Sombra azul suave */
-    transition: background-color .18s;
-  }
-  .open-btn:hover {
-    background: var(--accent2); /* Azul más oscuro */
-  }
-
-  /* 6. Otros elementos */
-  .series-title {
-    font-size: 18px; font-weight: 800; margin-top: 28px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid var(--border-color); /* Borde claro */
-    padding-bottom: 10px;
-  }
-
-  .no-results {
-    padding: 34px; text-align: center;
-    color: var(--muted); font-size: 16px;
-  }
-
-  footer {
-    max-width: 1200px; margin: 0 auto; padding: 30px 20px;
-    color: var(--muted); font-size: 13px; text-align: center;
-    border-top: 1px solid var(--border-color); /* Borde claro */
-  }
-
-  /* 7. Modal (Aviso) */
-  .modal-wrap {
-    position: fixed; inset: 0; display: grid; place-items: center;
-    /* Fondo claro con desenfoque */
-    background: rgba(244, 247, 246, 0.85);
-    backdrop-filter: blur(4px);
-    z-index: 120;
-  }
-  
-  .modal-card {
-    width: min(520px, 94%);
-    background: var(--bg-2); /* Fondo blanco */
-    border: 2px solid var(--danger); /* Borde rojo */
-    padding: 22px; border-radius: 14px; text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); /* Sombra suave */
-  }
-  
-  .modal-card h2 { color: var(--danger); margin: 0 0 10px; font-size: 20px; }
-  .modal-card p {
-    color: var(--text-color); /* Texto oscuro */
-    margin: 6px 0;
-  }
-  .modal-close {
-    margin-top: 18px; padding: 12px 14px; border-radius: 10px;
-    background: var(--accent1); /* Botón azul */
-    border: 0; color: white; font-weight: 800; cursor: pointer;
-    transition: background-color .18s;
-  }
-  .modal-close:hover {
-    background: var(--accent2); /* Azul más oscuro */
-  }
-
-  /* 8. Helpers y Responsivo */
-  .muted { color: var(--muted); }
-  .gap-8 { gap: 8px; display: flex; }
-  
-  .pill {
-    display: inline-block; padding: 6px 10px; border-radius: 999px;
-    background: rgba(0, 0, 0, 0.03); /* Fondo gris muy claro */
-    border: 1px solid var(--border-color);
-    font-weight: 700;
-    color: var(--muted);
-  }
-
-  /* Mantiene los cambios de layout del original */
-  @media (max-width: 880px) {
-    .h1 { font-size: 22px; }
-    .nav { padding: 14px; }
-    .brand-text { display: none; }
-  }
-</style>
-</head>
-<body>
-
-<header>
-  <div class="nav">
-    <div class="brand" onclick="scrollToTop()">
-      <div class="logo">HF</div>
-      <div class="brand-text">
-        <div class="title">HOME FORGEX</div>
-        <div class="subtitle">Eaglercraft clientes — @j_eliseoo_v (TikTok)</div>
-      </div>
-    </div>
-
-    <div class="controls">
-      <div class="search" role="search" aria-label="Buscar clientes">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="opacity:.8">
-          <path d="M21 21l-4.35-4.35" stroke="#cbd5e1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-          <circle cx="11" cy="11" r="6" stroke="#cbd5e1" stroke-width="1.6"></circle>
-        </svg>
-        <input id="search" autocomplete="off" placeholder="Buscar cliente, versión o serie... (Ctrl+K)" />
-        <div class="kbd" title="Atajo">Ctrl K</div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="hero-left">
-      <h1 class="h1">Mejores clientes de Eaglercraft — 2025</h1>
-      <div class="h1-sub muted">Advertencia importante: uso solo educativo. Riesgo de baneo.</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <div class="pill">Gratis</div>
-      <div class="pill">Sin instalar</div>
-    </div>
-  </section>
-
-    <section class="section" id="featuredSection">
-    <div class="section-head">
-      <div class="section-title">Destacados</div>
-      <div class="muted">Recomendados</div>
-    </div>
-    <div class="grid" id="featuredGrid">
-            <article class="card">
-        <div class="client-name">DragonX Client</div>
-        <div class="client-version">V5.1</div>
-        <button class="open-btn" onclick="openLink('https://eaglerhacks.github.io/dragonxv5.html')">Abrir</button>
-      </article>
-      <article class="card">
-        <div class="client-name">WurstX Client</div>
-        <div class="client-version">&nbsp;</div>
-        <button class="open-btn" onclick="openLink('https://eaglerhacks.github.io/wurstX.html')">Abrir</button>
-      </article>
-    </div>
-  </section>
-
-    <div id="seriesContainer" class="section"></div>
-
-    <div id="noResults" class="no-results" style="display:none;">No se encontraron clientes que coincidan con tu búsqueda.</div>
-</main>
-
-<div id="modalWrap" class="modal-wrap" role="dialog" aria-modal="true">
-  <div class="modal-card" role="document">
-    <h2>⚠️ AVISO IMPORTANTE</h2>
-    <p>Este sitio web se presenta solo con fines educativos.</p>
-        <p style="color:var(--accent1);font-weight:700;">El uso de clientes hackeados puede violar reglas y causar baneo de cuentas.</p>
-    <p>Reporta errores a <strong>@j_eliseoo_v</strong> en TikTok</p>
-    <button id="modalClose" class="modal-close">Continuar</button>
-  </div>
-</div>
-
-<footer>
-  <div class="muted">⚠️ AVISO IMPORTANTE: Los clientes hackeados son solo para fines educativos. El uso no autorizado puede resultar en bans permanentes.</div>
-</footer>
-
-<script>
-/* ---------- Data (¡LINKS SIN CAMBIOS!) ---------- */
-const CLIENTS = [
-  { series: "UwU Series", name: "UwUClient", version: "Beta 2", link: "https://eaglerhacks.github.io/UwU-client-b2.html" },
-  { series: "UwU Series", name: "UwU+ Client", version: "1.0", link: "https://eaglerhacks.github.io/UwU+-client-1.0.html" },
-
-  { series: "Dragon Series", name: "DragonX Client", version: "V5.1", link: "https://eaglerhacks.github.io/dragonxv5.html" },
-  { series: "Dragon Series", name: "Dragon Souls Client", version: "2.0", link: "https://eaglerhacks.github.io/dragon-souls-2.0.html" },
-
-  { series: "Shadow Series", name: "Shadow Client", version: "1.2", link: "https://eaglerhacks.github.io/shadow-client-1.2.html" },
-  { series: "Shadow Series", name: "ShadowX Client", version: "3.0", link: "https://eaglerhacks.github.io/shadowx-client-3.0.html" },
-
-  { series: "Otros clientes recomendados", name: "Wurst Client", version: "7.0", link: "https://eaglerhacks.github.io/wurst-7.0.html" },
-  { series: "Otros clientes recomendados", name: "Sigma Client", version: "5.2", link: "https://eaglerhacks.github.io/sigma-5.2.html" },
-  { series: "Otros clientes recomendados", name: "Impact Client", version: "4.8", link: "https://eaglerhacks.github.io/impact-4.8.html" },
-  { series: "Otros clientes recomendados", name: "Future Client", version: "12.5", link: "https://eaglerhacks.github.io/future-12.5.html" },
-  { series: "Otros clientes recomendados", name: "Flan Clientele", version: "2.4", link: "https://eaglerhacks.github.io/flan-2.4.html" },
-];
-
-/* ---------- Utilities (Funcionalidad de links intacta) ---------- */
-const $ = (sel, el=document) => el.querySelector(sel);
-const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
-function openLink(url){ window.open(url, '_blank'); } /* ¡FUNCIÓN DE LINK SIN CAMBIOS! */
-
-/* ---------- Modal (Lógica sin cambios) ---------- */
-const modalWrap = document.getElementById('modalWrap');
-const modalClose = document.getElementById('modalClose');
-modalClose.addEventListener('click', () => {
-  modalWrap.style.display = 'none';
-  localStorage.setItem('hf-warning-dismissed','1');
-});
-if(localStorage.getItem('hf-warning-dismissed')) modalWrap.style.display = 'none';
-
-/* ---------- Render series grouped (Lógica sin cambios) ---------- */
-function groupBy(arr, keyFn){
-  return arr.reduce((acc,item)=>{
-    const key = keyFn(item);
-    if(!acc[key]) acc[key]=[];
-    acc[key].push(item);
-    return acc;
-  }, {});
+interface Client {
+  series: string;
+  name: string;
+  version?: string;
+  link: string;
 }
 
-function renderSeries(filterTerm=''){
-  const container = document.getElementById('seriesContainer');
-  container.innerHTML = '';
-  const term = (filterTerm||'').trim().toLowerCase();
-
-  // filter first
-  const filtered = CLIENTS.filter(c=>{
-    if(!term) return true;
-    return (c.name + ' ' + (c.version||'') + ' ' + c.series).toLowerCase().includes(term);
-  });
-
-  if(term && filtered.length === 0){
-    document.getElementById('noResults').style.display = 'block';
-    return;
-  } else {
-    document.getElementById('noResults').style.display = 'none';
-  }
-
-  const grouped = groupBy(filtered, c => c.series);
-
-  Object.keys(grouped).forEach(series => {
-    const list = grouped[series];
-    const seriesBlock = document.createElement('section');
-    const title = document.createElement('div');
-    title.className = 'series-title';
-    title.textContent = term ? `Resultados (${list.length})` : series;
-    seriesBlock.appendChild(title);
-
-    const grid = document.createElement('div');
-    grid.className = 'grid';
-
-    list.forEach(client=>{
-      const card = document.createElement('article');
-      card.className = 'card';
-      /* ¡Renderizado de links sin cambios! */
-      card.innerHTML = `
-        <div class="client-name">${escapeHtml(client.name)}</div>
-        <div class="client-version">${client.version ? escapeHtml(client.version) : ''}</div>
-        <button class="open-btn" onclick="openLink('${client.link}')">Abrir</button>
-      `;
-      grid.appendChild(card);
-    });
-
-    seriesBlock.appendChild(grid);
-    container.appendChild(seriesBlock);
-  });
-
-  // Hide featured section when searching
-  const featured = document.getElementById('featuredSection');
-  if(term) featured.style.display = 'none'; else featured.style.display = '';
+interface SeriesGroup {
+  series: string;
+  clients: Client[];
 }
 
-/* ---------- Search behavior & shortcut (Lógica sin cambios) ---------- */
-const searchInput = document.getElementById('search');
-searchInput.addEventListener('input', (e)=> renderSeries(e.target.value));
-window.addEventListener('keydown', (e)=>{
-  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='k'){
-    e.preventDefault();
-    searchInput.focus();
-    searchInput.select();
-  }
-});
+export default function Home() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showWarning, setShowWarning] = useState(true);
 
-/* ---------- Helpers (Lógica sin cambios) ---------- */
-function escapeHtml(str){
-  return String(str).replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x39;'}[m];});
+  const clients: Client[] = [
+    // UwU Series
+    { series: "UwU Series", name: "UwUClient", version: "Beta 2", link: "https://eaglerhacks.github.io/UwU-client-b2.html" },
+    { series: "UwU Series", name: "UwU+ Client", version: "1.0", link: "https://eaglerhacks.github.io/UwU+-client-1.0.html" },
+
+    // Dragon Series
+    { series: "Dragon Series", name: "DragonX Client", version: "V5.1", link: "https://eaglerhacks.github.io/dragonxv5.html" },
+    { series: "Dragon Series", name: "Dragon Souls Client", version: "2.0", link: "https://eaglerhacks.github.io/dragon-souls-2.0.html" },
+
+    // Shadow Series
+    { series: "Shadow Series", name: "Shadow Client", version: "1.2", link: "https://eaglerhacks.github.io/shadow-client-1.2.html" },
+    { series: "Shadow Series", name: "ShadowX Client", version: "3.0", link: "https://eaglerhacks.github.io/shadowx-client-3.0.html" },
+
+    // Otros clientes recomendados
+    { series: "Otros clientes recomendados", name: "Wurst Client", version: "7.0", link: "https://eaglerhacks.github.io/wurst-7.0.html" },
+    { series: "Otros clientes recomendados", name: "Sigma Client", version: "5.2", link: "https://eaglerhacks.github.io/sigma-5.2.html" },
+    { series: "Otros clientes recomendados", name: "Impact Client", version: "4.8", link: "https://eaglerhacks.github.io/impact-4.8.html" },
+    { series: "Otros clientes recomendados", name: "Future Client", version: "12.5", link: "https://eaglerhacks.github.io/future-12.5.html" },
+    { series: "Otros clientes recomendados", name: "Flan Clientele", version: "2.4", link: "https://eaglerhacks.github.io/flan-2.4.html" },
+  ];
+
+  const filteredClients = clients.filter((client) =>
+    client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (client.version && client.version.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    client.series.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const groupedBySeriesInSearch = filteredClients.reduce(
+    (acc: SeriesGroup[], client: Client) => {
+      const group = acc.find((g) => g.series === client.series);
+      if (group) {
+        group.clients.push(client);
+      } else {
+        acc.push({ series: client.series, clients: [client] });
+      }
+      return acc;
+    },
+    []
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Warning Modal */}
+      {showWarning && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+          <div className="bg-slate-900 border-2 border-red-500 rounded-lg p-8 max-w-xl w-full">
+            <h1 className="text-3xl font-bold text-red-500 mb-6 text-center">
+              ⚠️ AVISO IMPORTANTE
+            </h1>
+            <div className="space-y-4 text-white text-center">
+              <p className="text-lg">Este sitio web está hecho para fines educativos</p>
+              <p className="text-lg font-bold text-yellow-400">Recuerda que el uso de clientes hackeados están contra las reglas</p>
+              <p className="text-lg font-bold text-red-400">No olvides que tu cuenta está en riesgo de baneos</p>
+              <p className="text-lg">No olvides informar a <span className="font-bold text-purple-400">@j_eliseoo_v en tiktok</span> si hay algún error o bug</p>
+              <p className="text-xl font-bold text-green-400 mt-6">¡Que lo disfrutes!</p>
+            </div>
+            <button
+              onClick={() => setShowWarning(false)}
+              className="w-full mt-8 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 rounded-lg transition-all text-lg"
+              data-testid="button-close-warning"
+            >
+              Continuar
+            </button>
+          </div>
+        </div>
+      )}
+      
+      {/* Header */}
+      <header className="bg-black/50 backdrop-blur-md border-b border-slate-700 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-6">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity cursor-pointer"
+                data-testid="button-home-forgex"
+              >
+                🏠 HOME FORGEX
+              </button>
+            </div>
+            <div className="text-sm text-gray-400">
+              Eaglercraft clientes hackeados por @j_eliseoo_v en TIKTOK
+            </div>
+          </div>
+
+          {/* Search Bar */}
+          <input
+            type="text"
+            placeholder="Buscar cliente, versión o serie..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+            data-testid="input-search"
+          />
+        </div>
+      </header>
+
+      {/* Clientes Recomendados Section - Primero */}
+      {!searchTerm && (
+      <section className="max-w-7xl mx-auto px-6 py-12">
+        <h2 className="text-3xl font-bold text-white mb-6 pb-3 border-b border-slate-700">
+          Mejores clientes 2025
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20 transition-all cursor-pointer hover-elevate"
+            data-testid="card-dragonx">
+            <h3 className="text-lg font-bold text-white mb-1">
+              DragonX Client
+            </h3>
+            <p className="text-purple-400 text-sm mb-3">
+              V5.1
+            </p>
+            <button
+              onClick={() => window.open("https://eaglerhacks.github.io/dragonxv5.html", "_blank")}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2 rounded transition-all"
+              data-testid="button-open-dragonx"
+            >
+              Abrir
+            </button>
+          </div>
+
+          <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20 transition-all cursor-pointer hover-elevate"
+            data-testid="card-wurstx">
+            <h3 className="text-lg font-bold text-white mb-1">
+              WurstX Client
+            </h3>
+            <p className="text-purple-400 text-sm mb-3">
+              &nbsp;
+            </p>
+            <button
+              onClick={() => window.open("https://eaglerhacks.github.io/wurstX.html", "_blank")}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2 rounded transition-all"
+              data-testid="button-open-wurstx"
+            >
+              Abrir
+            </button>
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-6 py-12">
+        {searchTerm && filteredClients.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-400 text-lg">No se encontraron clientes que coincidan con tu búsqueda.</p>
+          </div>
+        ) : (
+          <div className="space-y-12">
+            {groupedBySeriesInSearch.map((group: SeriesGroup) => (
+              <section key={group.series}>
+                <h2 className="text-3xl font-bold text-white mb-6 pb-3 border-b border-slate-700">
+                  {searchTerm ? `Resultados (${filteredClients.length})` : group.series}
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {group.clients.map((client: Client, idx: number) => (
+                    <div
+                      key={idx}
+                      className="bg-slate-800 border border-slate-700 rounded-lg p-4 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20 transition-all cursor-pointer hover-elevate"
+                      data-testid={`card-series-${idx}`}
+                    >
+                      <h3 className="text-lg font-bold text-white mb-1">
+                        {client.name}
+                      </h3>
+                      {client.version && (
+                        <p className="text-purple-400 text-sm mb-3">
+                          {client.version}
+                        </p>
+                      )}
+                      <button
+                        onClick={() => window.open(client.link, "_blank")}
+                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2 rounded transition-all"
+                        data-testid={`button-open-${idx}`}
+                      >
+                        Abrir
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-slate-700 bg-black/50 py-6 mt-12">
+        <div className="max-w-7xl mx-auto px-6 text-center text-gray-400 text-sm">
+          <p>⚠️ AVISO IMPORTANTE: Los clientes hackeados están diseñados solo con fines educativos.</p>
+          <p className="mt-2">El uso no autorizado de hacks puede resultar en bans permanentes.</p>
+        </div>
+      </footer>
+    </div>
+  );
 }
-
-/* ---------- Init (Lógica sin cambios) ---------- */
-renderSeries();
-document.getElementById('search').value = '';
-// accessible focus for open buttons (keyboard)
-document.addEventListener('click', function(e){ if(e.target.matches('.open-btn')) e.target.blur(); });
-
-/* Se eliminó la animación de fondo (setInterval) 
-   para permitir que el nuevo fondo CSS funcione.
-*/
-
-</script>
-</body>
-</html>
